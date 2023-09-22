@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" type="text/css" href="css/styles.css">
+</head>
+<body>
+    <header>
+        <h1>Welcome to To_Do_List Website</h1>
+    </header>
+    <form id="loginForm" onsubmit="return validateForm()">
+        <h2>Login</h2>
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required>
+        
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required>
+        
+        <button type="submit">Login</button>
+
+        <p><br></p>
+        <p>Not registered yet? <a href="register.html">Register here</a></p>
+    </form>
+    
+    
+    
+    <script>
+        function validateForm() {
+            const emailInput = document.getElementById('email').value;
+            const passwordInput = document.getElementById('password').value;
+
+            const registeredData = JSON.parse(localStorage.getItem('registeredData')) || [];
+
+            const matchingUser = registeredData.find(user => user.email === emailInput && user.password === passwordInput);
+
+            if (matchingUser) {
+                alert("Login successful!");
+                window.location.href = 'dashboard.html'; 
+            } else {
+                alert("Invalid email or password. Please try again.");
+            }
+            
+            return false; 
+        }
+    </script>
+</body>
+</html>

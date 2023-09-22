@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" type="text/css" href="css/styles.css">
+</head>
+<body>
+    <header>
+        <h1>Welcome to To_Do_List Website</h1>
+        <a id="logoutButton" href="index.html">Logout</a>
+    </header>
+
+    <main>
+        
+        <form id="taskForm">
+            <h2>To-Do List</h2>
+            <input type="text" id="task" placeholder="Add a new task">
+            <button onclick="addTask()">Add Task</button>
+        </form>
+        <form id="taskForm">
+        <h2>Task List</h2>
+        <ul id="taskList"></ul>
+        <p><br></p>
+        <button onclick="clearTasks()">Clear All</button>
+        </form>
+    </main>
+
+    <script>
+        function addTask() {
+            const taskInput = document.getElementById('task').value;
+            const taskList = document.getElementById('taskList');
+            const li = document.createElement('li');
+            li.textContent = taskInput;
+            taskList.appendChild(li);
+            document.getElementById('task').value = '';
+            const tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+            tasks.push(taskInput);
+            localStorage.setItem('tasks', JSON.stringify(tasks));
+        }
+
+        function clearTasks() {
+            const taskList = document.getElementById('taskList');
+            taskList.innerHTML = '';
+
+            localStorage.removeItem('tasks');
+        }
+        window.onload = function () {
+            const tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+            const taskList = document.getElementById('taskList');
+            tasks.forEach(function (task) {
+                const li = document.createElement('li');
+                li.textContent = task;
+                taskList.appendChild(li);
+            });
+        }
+    </script>
+    </body>
+</html>
